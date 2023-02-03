@@ -1,6 +1,7 @@
 :root {
   font-size: 16px;
   --primary-color: #28166f;
+  --secondary-color: #aa9b9b;
 }
 
 * {
@@ -16,11 +17,25 @@ body {
 .container {
   max-width: 360px;
   margin: auto;
+}
+
+.min-full-height {
   min-height: 100vh;
 }
 
-.white-text {
+.white-wrapper {
+  background-color: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.text-white {
   color: white;
+}
+
+.primary-text {
+  color: var(--primary-color);
 }
 
 .text-center {
