@@ -13,3 +13,29 @@
   font-style: italic;
   color: var(--secondary-color);
 }
+
+/* Move styles to Button component */
+.inputDiv {
+  margin: 20px auto;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+}
+
+.labelHint {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--secondary-color);
+}
+
+.inputField {
+  width: 300px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: solid thin var(--primary-color);
+  border-radius: 10px;
+  margin-top: 10px;
+}

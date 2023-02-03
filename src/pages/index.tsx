@@ -25,7 +25,7 @@ export default function Home() {
           Joining the bus this sunday?
         </h1>
         <Button
-          type="secondary"
+          variant="secondary"
           btnText="Book Trip"
           handleClick={handleBooking}
         />

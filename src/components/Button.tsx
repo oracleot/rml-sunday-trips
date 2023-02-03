@@ -3,15 +3,22 @@ import { MouseEventHandler } from "react";
 
 interface ButtonProps {
   btnText: string;
-  type: "primary" | "secondary";
-  handleClick: MouseEventHandler<HTMLButtonElement>;
+  variant: "primary" | "secondary";
+  type?: "button" | "submit" | "reset";
+  handleClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Button({ btnText, type, handleClick }: ButtonProps) {
+export default function Button({
+  btnText,
+  variant,
+  type,
+  handleClick,
+}: ButtonProps) {
   return (
     <button
+      type={type}
       onClick={handleClick}
-      className={`${styles.btn} ${styles[`btn-${type}`]}`}
+      className={`${styles.btn} ${styles[`btn-${variant}`]}`}
     >
       {btnText}
     </button>
