@@ -1,0 +1,23 @@
+.btn {
+  border: none;
+  outline: none;
+  padding: 15px 25px;
+  border-radius: 27px;
+  font-size: 1.125rem;
+  transition: 0.3s ease-in;
+  font-weight: 700;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: whitesmoke;
+}
+
+.btn-secondary {
+  background-color: whitesmoke;
+  color: var(--primary-color);
+}
