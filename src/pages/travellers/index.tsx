@@ -20,10 +20,10 @@ interface TravellersProps {
 }
 
 export default function Travellers({ travellers }: TravellersProps) {
-  const getDirections = (postCode: string) => {
+  const getDirections = (addressLine1: string, postCode: string) => {
     //handle get directions
     window.open(
-      `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${postCode}`
+      `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${addressLine1}${postCode}`
     );
   };
   return (
@@ -63,7 +63,12 @@ export default function Travellers({ travellers }: TravellersProps) {
                   <Button
                     variant="primary"
                     btnText="Directions 🧭"
-                    handleClick={() => getDirections(traveller.post_code)}
+                    handleClick={() =>
+                      getDirections(
+                        traveller.address_line_1,
+                        traveller.post_code
+                      )
+                    }
                   />{" "}
                   <Link href={`tel:${traveller.contact_no}`}>
                     <Button variant="secondary" btnText="Call 🤙🏽" />
