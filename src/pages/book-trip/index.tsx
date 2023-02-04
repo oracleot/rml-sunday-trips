@@ -4,9 +4,11 @@ import styles from "@/styles/BookTrip.module.css";
 import blueBus from "../../../public/blue-bus.svg";
 import Button from "@/components/Button";
 import { FormEvent } from "react";
+import { useRouter } from "next/router";
 
 export default function BookTrip() {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { familyName, addressLine1, postCode, contactNo, numberOfPeople } =
@@ -20,7 +22,23 @@ export default function BookTrip() {
       numberOfPeople: numberOfPeople.value,
     };
 
-    console.log(data);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    try {
+      const response = await fetch("/api/book-trip", options);
+      const result = await response.json();
+      if (result?.message === "Success!") {
+        router.push("/booking-successful");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <>

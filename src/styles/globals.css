@@ -20,7 +20,7 @@ body {
 }
 
 .min-full-height {
-  min-height: 100vh;
+  min-height: 94vh;
 }
 
 .white-wrapper {
@@ -36,6 +36,10 @@ body {
 
 .primary-text {
   color: var(--primary-color);
+}
+
+.secondary-text {
+  color: var(--secondary-color);
 }
 
 .text-center {
