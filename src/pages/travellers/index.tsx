@@ -5,12 +5,14 @@ import blueBus from "../../../public/blue-bus.svg";
 import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 import React from "react";
+import Button from "@/components/Button";
 
 interface Traveller {
   id: string;
   family_name: string;
   address_line_1: string;
   post_code: string;
+  contact_no: string;
 }
 
 interface TravellersProps {
@@ -18,6 +20,10 @@ interface TravellersProps {
 }
 
 export default function Travellers({ travellers }: TravellersProps) {
+  const getDirections = (postCode: string) => {
+    //handle get directions
+    alert(`Getting directions to ${postCode}`);
+  };
   return (
     <>
       <Head>
@@ -40,13 +46,27 @@ export default function Travellers({ travellers }: TravellersProps) {
                   listStyle: "none",
                   padding: 15,
                   border: "solid thin",
+                  borderRadius: 5,
                 }}
               >
-                {traveller.family_name} family
-                <br />
-                {traveller.address_line_1}
-                {", "}
-                {traveller.post_code}
+                <p>
+                  <strong>{traveller.family_name} family</strong>
+                </p>
+                <p>
+                  {traveller.address_line_1}
+                  {", "}
+                  {traveller.post_code}
+                </p>
+                <p className="my-min">
+                  <Button
+                    variant="primary"
+                    btnText="Directions 🧭"
+                    handleClick={() => getDirections(traveller.post_code)}
+                  />{" "}
+                  <Link href={`tel:${traveller.contact_no}`}>
+                    <Button variant="secondary" btnText="Call 🤙🏽" />
+                  </Link>
+                </p>
               </li>
             </React.Fragment>
           ))}
