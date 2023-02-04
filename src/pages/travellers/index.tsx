@@ -23,7 +23,7 @@ export default function Travellers({ travellers }: TravellersProps) {
   const getDirections = (addressLine1: string, postCode: string) => {
     //handle get directions
     window.open(
-      `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${addressLine1}${postCode}`
+      `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${addressLine1}, ${postCode}`
     );
   };
   return (
