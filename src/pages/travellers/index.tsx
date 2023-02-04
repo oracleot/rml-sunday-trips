@@ -3,6 +3,8 @@ import Image from "next/image";
 import styles from "@/styles/BookTrip.module.css";
 import blueBus from "../../../public/blue-bus.svg";
 import { supabase } from "@/lib/supabaseClient";
+import Link from "next/link";
+import React from "react";
 
 interface Traveller {
   id: string;
@@ -25,13 +27,14 @@ export default function Travellers({ travellers }: TravellersProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container min-full-height white-wrapper">
-        <Image src={blueBus} alt="Bus Image" className={styles.busImg} />
+        <Link href="/">
+          <Image src={blueBus} alt="Bus Image" className={styles.busImg} />
+        </Link>
         <h1 className={`secondary-text my-min`}>Travellers</h1>
         <ul>
           {travellers.map((traveller: Traveller) => (
-            <>
+            <React.Fragment key={traveller.id}>
               <li
-                key={traveller.id}
                 className="my-min"
                 style={{
                   listStyle: "none",
@@ -45,7 +48,7 @@ export default function Travellers({ travellers }: TravellersProps) {
                 {", "}
                 {traveller.post_code}
               </li>
-            </>
+            </React.Fragment>
           ))}
         </ul>
       </main>

@@ -3,8 +3,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 import busImg from "../../public/white-bus.svg";
+import AdminIcon from "../../public/admin-icon.svg";
 
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -29,6 +31,15 @@ export default function Home() {
           btnText="Book Trip"
           handleClick={handleBooking}
         />
+        <Link href="/login">
+          <Image
+            className="pos-abs"
+            style={{ bottom: 50, right: 50 }}
+            src={AdminIcon}
+            alt="Admin Icon"
+            role="button"
+          />
+        </Link>
       </main>
     </>
   );
