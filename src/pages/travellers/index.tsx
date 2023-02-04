@@ -22,7 +22,9 @@ interface TravellersProps {
 export default function Travellers({ travellers }: TravellersProps) {
   const getDirections = (postCode: string) => {
     //handle get directions
-    alert(`Getting directions to ${postCode}`);
+    window.open(
+      `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${postCode}`
+    );
   };
   return (
     <>
