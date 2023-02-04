@@ -11,7 +11,11 @@ interface Traveller {
   post_code: string;
 }
 
-export default function Travellers({ travellers }) {
+interface TravellersProps {
+  travellers: Traveller[];
+}
+
+export default function Travellers({ travellers }: TravellersProps) {
   return (
     <>
       <Head>
@@ -51,7 +55,6 @@ export default function Travellers({ travellers }) {
 
 export async function getServerSideProps() {
   let { data } = await supabase.from("travellers").select();
-
   return {
     props: {
       travellers: data,
