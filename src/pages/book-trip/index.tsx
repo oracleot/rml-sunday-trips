@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "@/styles/BookTrip.module.css";
 import blueBus from "../../../public/blue-bus.svg";
 import Button from "@/components/Button";
@@ -7,10 +8,13 @@ import { FormEvent } from "react";
 import { useRouter } from "next/router";
 
 export default function BookTrip() {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setLoading(true);
     const { familyName, addressLine1, postCode, contactNo, numberOfPeople } =
       event.currentTarget;
 
@@ -33,13 +37,33 @@ export default function BookTrip() {
     try {
       const response = await fetch("/api/book-trip", options);
       const result = await response.json();
-      if (result?.message === "Success!") {
-        router.push("/booking-successful");
+      const { data, error } = result;
+      if (Object.keys(error).length > 0) {
+        setError(error);
+        setLoading(false);
+      }
+      if (Object.keys(data).length > 0) {
+        setSuccess(data.message);
       }
     } catch (err) {
-      console.error(err);
+      setError(error);
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error || success) {
+      setTimeout(() => {
+        if (error) {
+          setError("");
+        } else {
+          setSuccess("");
+          router.push("/booking-successful");
+        }
+      }, 2000);
+    }
+  }, [error, success]);
+
   return (
     <>
       <Head>
@@ -124,8 +148,31 @@ export default function BookTrip() {
               required
             />
           </div>
-
-          <Button type="submit" btnText="Submit" variant="primary" />
+          <p
+            style={{
+              fontSize: "0.8rem",
+              fontWeight: "600",
+              color: "red",
+              marginBottom: 5,
+            }}
+          >
+            {error && error}
+          </p>
+          <p
+            style={{
+              fontSize: "0.8rem",
+              fontWeight: "600",
+              color: "green",
+              marginBottom: 5,
+            }}
+          >
+            {success && success}
+          </p>
+          <Button
+            type="submit"
+            btnText={loading ? "Please wait..." : "Submit"}
+            variant="primary"
+          />
         </form>
       </main>
     </>

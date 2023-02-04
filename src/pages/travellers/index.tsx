@@ -39,7 +39,7 @@ export default function Travellers({ travellers }: TravellersProps) {
                   border: "solid thin",
                 }}
               >
-                {traveller.family_name}
+                {traveller.family_name} family
                 <br />
                 {traveller.address_line_1}
                 {", "}

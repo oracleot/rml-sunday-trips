@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabaseClient";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface ExtendedNextApiRequest extends NextApiRequest {
@@ -10,7 +11,7 @@ interface ExtendedNextApiRequest extends NextApiRequest {
   };
 }
 
-export default function handler(
+export default async function handler(
   req: ExtendedNextApiRequest,
   res: NextApiResponse
 ) {
@@ -18,24 +19,40 @@ export default function handler(
     req.body;
 
   if (!familyName) {
-    return res.status(400).json({ message: "Family name required" });
+    return res.status(400).json({ error: "Family name required" });
   }
 
   if (!addressLine1) {
-    return res.status(400).json({ message: "Address Line 1 required" });
+    return res.status(400).json({ error: "Address Line 1 required" });
   }
 
   if (!postCode) {
-    return res.status(400).json({ message: "Post Code required" });
+    return res.status(400).json({ error: "Post Code required" });
   }
 
   if (!contactNo) {
-    return res.status(400).json({ message: "Contact No required" });
+    return res.status(400).json({ error: "Contact No required" });
   }
 
   if (!numberOfPeople) {
-    return res.status(400).json({ message: "Nunmbe of people required" });
+    return res.status(400).json({ error: "Nunmbe of people required" });
   }
 
-  res.status(200).json({ message: "Success!" });
+  const { data, error } = await supabase.from("travellers").insert([
+    {
+      family_name: familyName,
+      address_line_1: addressLine1,
+      post_code: postCode,
+      contact_no: contactNo,
+      number_of_people: numberOfPeople,
+    },
+  ]);
+
+  if (error) {
+    res.status(400).json({ data: {}, error: "Something went wrong!" });
+  }
+
+  res
+    .status(200)
+    .json({ data: { data, message: "Booking successful!" }, error: {} });
 }
